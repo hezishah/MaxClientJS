@@ -2,7 +2,7 @@ var Websocket = (function(){
 	var instantiated;
 
 	function init(options){
-		var socket = io.connect(options.host);
+		var socket = io.connect();
 		socket.on('connected',function(data){
 			console.log(data.connected);
 		});

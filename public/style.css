@@ -1,0 +1,122 @@
+        body
+        {
+            border: 0;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background: #161616;
+        }
+
+        #activator{
+            color: white;
+        }
+
+        .overlay{
+            background:transparent url(images/overlay.png) repeat top left;
+            position:fixed;
+            top:0px;
+            bottom:0px;
+            left:0px;
+            right:0px;
+            z-index:100;
+        }
+
+        .box{
+            position:fixed;
+            top:-500px;
+            left:30%;
+            right:30%;
+            height: 200px;
+            background-color:#000000;
+            color:#7F7F7F;
+            padding:20px;
+            border:2px solid #ccc;
+            -moz-box-shadow: 0 1px 5px #333;
+            -webkit-box-shadow: 0 1px 5px #333;
+            z-index:101;
+        }
+
+        a.boxclose{
+            float:right;
+            width:26px;
+            height:26px;
+            background:"black";
+            margin-top:-30px;
+            margin-right:-30px;
+            cursor:pointer;
+        }
+
+        #image{
+                display: block;
+    margin-left: auto;
+    margin-right: auto
+        }
+
+        #main{
+            position: relative;
+            padding: 25px 50px 25px 50px;
+            width : 90%;
+        }
+
+        #canvasContainer
+        {
+            position: absolute;
+            left:0;
+            width: 60%;
+        }
+        #drawCanvas
+        {
+        }
+
+        .clip{
+            width: 100px;
+            height: 30px;
+            border: solid 2px #EFEFEF;
+            background-color: #195073;
+        }
+
+        .colorChooser
+        {
+            width: 50px;
+            height: 50px;
+            border: solid 2px #EFEFEF;
+        }
+
+        .drumPad
+        {
+            width: 100px;
+            height: 100px;
+            background: grey;
+
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            border: 2px solid #FFFFFF;
+
+            -moz-box-shadow:    1px 1px 20px 1px #ccc;
+            -webkit-box-shadow: 1px 1px 20px 1px #ccc;
+            box-shadow:         1px 1px 20px 1px #ccc;
+
+        }
+
+        #controls
+        {
+            position: absolute;
+            text-align: center;
+            right: 0;
+            widht: 40%;
+            height: 570px;
+        }
+
+        .controlTitle
+        {
+            color: #FFFFFF;
+            text-align: center;
+        }
+        #footer
+        {
+            position: absolute;
+            bottom: 0;
+            background: #161616
+            height:20px;
+            width:100%;
+        }

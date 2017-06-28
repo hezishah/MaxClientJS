@@ -3,7 +3,7 @@ var MaxCommunication = (function(){
 
     function init(options){
 
-    	var socket = Websocket.getInstance({'host' : options.socketHost});
+    	var socket = Websocket.getInstance();
 		var udpPort = options.udpPort;
 
 		var byteConverter = ByteConverter.getInstance();

@@ -1,0 +1,165 @@
+<html>
+<title>Max test</title>
+<head>
+</head>
+<script type="text/javascript" src="socket.io/socket.io.js"></script> 
+<script type="text/javascript" src="jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="bigInt.js"></script>
+<script type="text/javascript" src="byteConverter.js"></script>
+<script type="text/javascript" src="libOSC.js"></script>
+<script type="text/javascript" src="websocket.js"></script>
+<script type="text/javascript" src="maxCommunication.js"></script>
+<script type="text/javascript" src="paper-full.min.js"></script>
+<script type="text/javascript" src="jquery.knob.min.js"></script>
+<link REL=StyleSheet HREF="style.css" TYPE="text/css">
+    <body>
+        <div id="main">
+            <div id="canvasContainer">
+                <table>
+                    <tr>
+                        <td>
+                            <div style="background: #195073" data-colour="#195073" class="colorChooser"></div>
+                        </td>
+                        <td>
+                            <div style="background: #611427" data-colour="#611427" class="colorChooser"></div>
+                        </td>
+                        <td>
+                            <div style="background: #8A735F" data-colour="#8A735F"  class="colorChooser"></div>
+                        </td>
+                        <td>
+                            <div style="background: #EE913F" data-colour="#EE913F" class="colorChooser"></div>
+                        </td>
+                        <td>
+                            <div style="background: #FFA16F" data-colour="#FFA16F" class="colorChooser"></div>
+                        </td>
+                        <td>
+                            <div style="background: #5A8C81" data-colour="#5A8C81" class="colorChooser"></div>
+                        </td>
+                        <td>
+                            <div style="background: #7F8C1F" data-colour="#7F8C1F" class="colorChooser"></div>
+                        </td>
+                        <td>
+                            <div style="background: #B2B5A4" data-colour="#B2B5A4" class="colorChooser"></div>
+                        </td>
+                         <td>
+                            <div style="background: #BDA895" data-colour="#BDA895" class="colorChooser"></div>
+                        </td>
+                        <td>
+                            <div style="background: #D8D8D8" data-colour="#D8D8D8" class="colorChooser"></div>
+                        </td>
+                        <td>
+                            <select id="instrument">
+                                <option value="Pad">Space-Pad</option>
+                                <option value="Pad2">Frog Noise</option>
+                                <option value="Wurli">Wurlitzer Wah Wah</option>
+                                <option value="Drums">Drums</option>
+                                <option value="vid">I wanna watch a vid</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+                <canvas id="drawCanvas" keepalive="true" width="642"height="600">
+                    <p> Canvas not supported by your browser!</p>
+                </canvas>
+            </div>
+            <div id="controls">
+                <table>
+                    <tr>
+                        <td>
+                            <input id="volume" value="85">
+                            <div class="controlTitle">volume</div>
+                        </td>
+                        <td><input id="duration" value="100">
+                            <div class="controlTitle">duration</div>
+                        </td>
+                        <td>
+                            <input id="panning" value="0">
+                            <div class="controlTitle">pan</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input id="send0">
+                            <div class="controlTitle">delay</div>
+                        </td>
+                        <td>
+                            <input id="send1">
+                            <div class="controlTitle">reverb</div>
+                        </td>
+                        <td>
+                            <input id="send2">
+                            <div class="controlTitle">chorus</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div id="drum37" drumValue="37" class="drumPad"></div>
+                        </td>
+                        <td>
+                            <div id="drum39" drumValue="39" class="drumPad"></div>
+                        </td>
+                        <td>
+                            <div id="drum51" drumValue="51" class="drumPad"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div id="drum40" drumValue="40" class="drumPad"></div>
+                        </td>
+                        <td>
+                            <div id="drum44" drumValue="44" class="drumPad"></div>
+                        </td>
+                        <td>
+                            <div id="drum46" drumValue="46" class="drumPad"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div id="drum35" drumValue="35" class="drumPad"></div>
+                        </td>
+                        <td>
+                            <div id="drum36" drumValue="36" class="drumPad"></div>
+                        </td>
+                        <td>
+                            <div id="drum38" drumValue="38" class="drumPad"></div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div id="footer">
+            <table>
+                <tr>
+                    <td>
+                        <div clip-value="0" class="clip" id="clip0"></div>
+                    </td>
+                    <td>
+                        <div clip-value="1" class="clip" id="clip1"></div>
+                    </td>
+                    <td>
+                        <div clip-value="2" class="clip" id="clip2"></div>
+                    </td>
+                    <td>
+                        <div clip-value="3" class="clip" id="clip3"></div>
+                    </td>
+                    <td>
+                        <div clip-value="4" class="clip" id="clip4"></div>
+                    </td>
+                    <td>
+                        <div clip-value="5" class="clip" id="clip5"></div>
+                    </td>
+
+                </tr>
+            </table>
+        </div>
+        
+        <div class="overlay" id="overlay" style="display:none;"></div>
+        <div class="box" id="box">
+            <a class="boxclose" id="boxclose"></a>
+            <img id="image" src="">
+        </div>
+        <!-- RUN THE APPLICATION -> LOCATED IN app.js -->
+        <script type="text/javascript" src="./app.js"></script>
+    </body>
+</html>
