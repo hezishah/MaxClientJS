@@ -1,10 +1,10 @@
 # A JS library for Max MSP communication
 
 Starting from the great work of taboada for MaxClientJS and node-MaxComm I have added two main functionalities:
-1. Parse Max Match and Recreate controls from Presentation mode to the Web Page (Currently supports only Message buttons and Knobs)
+1. Parse Max Patch and Recreate controls from Presentation mode to the Web Page (Currently supports only Message buttons and Knobs)
 2. Add Google SearchGazer module for getting gaze X and Y Coordinated sent to Max Patch.
 
-Installation:
+## Installation:
 - Install Git - https://sourceforge.net/projects/gitextensions
 - Install NodeJS - From https://nodejs.org/en/download/
 - Create a sub directory for the project
