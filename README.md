@@ -5,7 +5,7 @@ Starting from the great work of taboada for MaxClientJS and node-MaxComm I have 
 2. Add Google SearchGazer module for getting gaze X and Y Coordinated sent to Max Patch.
 
 ## Installation:
-- Install Git - https://sourceforge.net/projects/gitextensions
+- Install Git - https://git-scm.com/downloads and optionaly also https://sourceforge.net/projects/gitextensions
 - Install NodeJS - From https://nodejs.org/en/download/
 - Create a sub directory for the project
 - Open Command Prompt and type the following commands:
@@ -18,8 +18,14 @@ npm install
 
 To start the webserver type the following command:
 ```html
+node app-nw.js
+```
+
+For macos and linux with https support:
+```html
 node app.js
 ```
+
 
 Open a Browser and goto: http://127.0.0.1:3000
 
