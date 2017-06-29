@@ -1,0 +1,172 @@
+<html>
+    <title>Max test</title>
+    <head>
+        <script type="text/javascript" src="socket.io/socket.io.js"></script>
+        <script type="text/javascript" src="jquery-1.11.2.min.js"></script>
+        <script type="text/javascript" src="jquery.knob.min.js"></script>
+        <script type="text/javascript" src="bigInt.js"></script>
+        <script type="text/javascript" src="byteConverter.js"></script>
+        <script type="text/javascript" src="libOSC.js"></script>
+        <script type="text/javascript" src="websocket.js"></script>
+        <script type="text/javascript" src="maxCommunication.js"></script>
+    </head>
+    <body>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+            
+            <script type="text/javascript" src="../searchgazer.js"></script>
+            
+            <script type="text/javascript">
+                
+                var maxCommunicator = new MaxCommunication.getInstance({
+                                                                       'udpPort' : 50000
+                                                                       });
+                                                                       var receive = false;
+                                                                       
+                                                                       maxCommunicator.receiveMsgFromServer('paramChanged',function(data){
+                                                                                                            data.value;
+                                                                                                            updateKnob(data.parameter);
+                                                                                                            console.log(data.value);
+                                                                                                            });
+                                                                                                            
+                                                                                                            function bClick(e , name) { // Note this is a function
+                                                                                                                e.stopPropagation(); e.preventDefault();
+                                                                                                                if(!receive){
+                                                                                                                    maxCommunicator.sendMsgToMax(name,['s','i'],["Pad","bang"]);
+                                                                                                                    maxCommunicator.sendMsgToServer('paramChanged',
+                                                                                                                                                    {"instrument" : "Pad", "parameter" : name, "value" : "bang"});
+                                                                                                                }
+                                                                                                            };
+            
+            $.getJSON("max/osctest.maxpat", function(json) {
+                      
+                      //Create an input type dynamically.
+                      var boxCount = json.patcher.boxes.length;
+                      for(i=0;i<boxCount;i++)
+                      {
+                      if(json.patcher.boxes[i].box.presentation_rect!=null)
+                      {
+                      switch(json.patcher.boxes[i].box.maxclass)
+                      {
+                      case "message":
+                      var button = document.createElement("button");
+                      //Assign different attributes to the element.
+                      button.type = "button";
+                      button.value = json.patcher.boxes[i].box.text; // Really? You want the default value to be the type string?
+                      button.id = button.name = json.patcher.boxes[i].box.varname;
+                      button.style.left=json.patcher.boxes[i].box.presentation_rect[0];
+                      button.style.top=json.patcher.boxes[i].box.presentation_rect[1];
+                      button.style.width=json.patcher.boxes[i].box.presentation_rect[2];
+                      button.style.height=json.patcher.boxes[i].box.presentation_rect[3];
+                      button.style.position="absolute";
+                      button.textContent = json.patcher.boxes[i].box.text;
+                      //Append the element in page (in span).
+                      $("body").append(button);
+                      button.setAttribute("onclick","bClick(event , '"+button.name+"')");
+                      button.setAttribute("ontouchstart","bClick(event , '"+button.name+"')");
+                      
+                      break;
+                      case "dial":
+                      var element = document.createElement("div");
+                      //Assign different attributes to the element.
+                      element.class = "text";
+                      element.style.left=json.patcher.boxes[i].box.presentation_rect[0];
+                      element.style.top=json.patcher.boxes[i].box.presentation_rect[1];
+                      element.style.width=json.patcher.boxes[i].box.presentation_rect[2];
+                      element.style.height=json.patcher.boxes[i].box.presentation_rect[3];
+                      element.style.position="absolute";
+                      
+                      var dial = document.createElement("input");
+                      //Assign different attributes to the element.
+                      dial.class = "knob";
+                      dial.class = "dial";
+                      dial.value="0";
+                      dial.name = json.patcher.boxes[i].box.id;  // And the name too?
+                      
+                      //Append the element in page (in span).
+                      $("body").append(element);
+                      $(element).append(dial);
+                      dial.setAttribute("data-fgColor","#66EE66");
+                      dial.setAttribute("data-thickness",".9");
+                      dial.setAttribute("data-displayInput","false");
+                      dial.setAttribute("data-max","127");
+                      dial.setAttribute("data-angleOffset","-125");
+                      dial.setAttribute("data-angleArc","250");
+                      dial.setAttribute("data-varname",json.patcher.boxes[i].box.varname);
+                      
+                      $(dial).knob(
+                                   {
+                                   'width': json.patcher.boxes[i].box.presentation_rect[2],
+                                   'height': json.patcher.boxes[i].box.presentation_rect[3],
+                                   'change'   :   function(val){
+                                   var dial = this.$;
+                                   if(!receive){
+                                   maxCommunicator.sendMsgToMax(dial.data("varname"),['s','i'],["Pad",val]);
+                                   maxCommunicator.sendMsgToServer('paramChanged',
+                                                                   {"instrument" : "Pad", "parameter" : dial.data("varname"), "value" : val});
+                                   }
+                                   ;} 
+                                   }
+                                   )
+                      
+                      break;            
+                      }
+                      }
+                      }
+                      console.log(json);
+                      });
+                      
+                      window.onload = function() {
+                          webgazer.setRegression('ridge') /* currently must set regression and tracker */
+                          .setTracker('clmtrackr')
+                          .setGazeListener(function(data, clock) {
+                                           if(data!=null) {
+                                                maxCommunicator.sendMsgToMax("gazeX",['s','i'],["Pad",data.x]);
+                                                maxCommunicator.sendMsgToMax("gazeY",['s','i'],["Pad",data.y]);
+                                           }
+                                                /*maxCommunicator.sendMsgToServer('paramChanged',
+                                                                           {"instrument" : "Pad", "parameter" : name, "value" : "bang"});*/
+                                                /*console.log(data.x + ":" + data.y);*/
+                                           
+                                           //   console.log(data); /* data is an object containing an x and y key which are the x and y prediction coordinates (no bounds limiting) */
+                                           //   console.log(clock); /* elapsed time in milliseconds since webgazer.begin() was called */
+                                           })
+                                           .begin()
+                                           .showPredictionPoints(true); /* shows a square every 100 milliseconds where current prediction is */
+                                           
+                                           var width = 320;
+                                           var height = 240;
+                                           var topDist = '0px';
+                                           var leftDist = '0px';
+                                           
+                                           var setup = function() {
+                                               var video = document.getElementById('webgazerVideoFeed');
+                                               video.style.display = 'hidden';
+                                               video.style.position = 'absolute';
+                                               video.style.top = topDist;
+                                               video.style.left = leftDist;
+                                               video.width = width;
+                                               video.height = height;
+                                               video.style.margin = '0px';
+                                               
+                                               webgazer.params.imgWidth = width;
+                                               webgazer.params.imgHeight = height;
+                                           };
+                                           
+                                           function checkIfReady() {
+                                               if (webgazer.isReady()) {
+                                                   setup();
+                                               } else {
+                                                   setTimeout(checkIfReady, 100);
+                                               }
+                                           }
+                                           setTimeout(checkIfReady,100);
+                                           
+                                           window.onbeforeunload = function() {
+                                               webgazer.end();
+                                           };
+                      };
+            
+                </script>
+            
+    </body>
+</html>

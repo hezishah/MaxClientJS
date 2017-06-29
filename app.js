@@ -3,14 +3,24 @@
 
 var sys         = require('sys');
 var express = require('express');
-var app = express();
+var pem = require('pem');
 var http = require('http');
-var server = http.createServer(app);
-var io          = require('socket.io'); 
+var https = require('https');
 
-app.use(express.static(__dirname + '/public'));
+pem.createCertificate({days:1, selfSigned:true}, function(err, keys) {
+      var app = express();
+      var server = http.createServer(app);
+      var httpsServer = https.createServer({key: keys.serviceKey, cert:keys.certificate}, app);
+      /*var io          = require('socket.io');*/
+      app.use(express.static(__dirname + '/public'));
+      
+      server.listen(3000);
+      httpsServer.listen(8443);
 
-server.listen(3000);
+      var Communicator = require('MaxComm');
+      var comm = new Communicator(4300,server);
+
+                      });
 
 /*var socket = io.listen(server);
 
@@ -26,5 +36,3 @@ socket.on('connection', function (client){
   });
 });
 */
-var Communicator = require('node-MaxComm');
-var comm = new Communicator(4300,server);
