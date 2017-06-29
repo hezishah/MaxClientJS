@@ -9,13 +9,17 @@ Installation:
 - Install NodeJS - From https://nodejs.org/en/download/
 - Create a sub directory for the project
 - Open Command Prompt and type the following commands:
-    1. npm install --save npm-git-install
-    2. git clone https://github.com/hezishah/MaxClientJS-Gaze.git
-    3. cd MaxClientJS-Gaze/
-    4. npm install
+```html
+npm install --save npm-git-install
+git clone https://github.com/hezishah/MaxClientJS-Gaze.git
+cd MaxClientJS-Gaze/
+npm install
+```
 
 To start the webserver type the following command:
+```html
 node app.js
+```
 
 Open a Browser and goto: http://127.0.0.1:3000
 
