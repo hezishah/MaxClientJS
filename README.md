@@ -1,5 +1,28 @@
 # A JS library for Max MSP communication
 
+Starting from the great work of taboada for MaxClientJS and node-MaxComm I have added two main functionalities:
+1. Parse Max Match and Recreate controls from Presentation mode to the Web Page (Currently supports only Message buttons and Knobs)
+2. Add Google SearchGazer module for getting gaze X and Y Coordinated sent to Max Patch.
+
+Installation:
+- Install Git - https://sourceforge.net/projects/gitextensions
+- Install NodeJS - From https://nodejs.org/en/download/
+- Create a sub directory for the project
+- Open Command Prompt and type the following commands:
+    1. npm install --save npm-git-install
+    2. git clone https://github.com/hezishah/MaxClientJS-Gaze.git
+    3. cd MaxClientJS-Gaze/
+    4. npm install
+
+To start the webserver type the following command:
+node app.js
+
+Open a Browser and goto: http://127.0.0.1:3000
+
+Open the max patch in public/max/osctest.maxpat
+
+Enjoy.
+
 This is a small straight-forward, javascript client library that can be used in order to communicate with an instance of Max MSP.
 In order to use it a node.js server is necessary that allows communication using socket.io and UDP.
 The communication with Max MSP is based on OSC messages. Therefore the library includes OSC parsing and creating.
