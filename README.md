@@ -10,7 +10,7 @@ Starting from the great work of taboada for MaxClientJS and node-MaxComm I have 
 - Create a sub directory for the project
 - Open Command Prompt and type the following commands:
 ```html
-npm install --save npm-git-install
+npm install -g npm-git-install
 git clone https://github.com/hezishah/MaxClientJS-Gaze.git
 cd MaxClientJS-Gaze/
 npm install
