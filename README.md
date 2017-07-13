@@ -18,7 +18,7 @@ npm install
 
 To start the webserver type the following command:
 ```html
-node app-nw.js
+node app-ns.js
 ```
 
 For macos and linux with https support:
